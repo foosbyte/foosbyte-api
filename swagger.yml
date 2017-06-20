@@ -1,0 +1,574 @@
+swagger: "2.0"
+
+info:
+  version: "0.0.1"
+  title: foosbyte API
+  description: Read and manage a foosball league system
+
+host: foosbyte.com
+basePath: /v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /players:
+    get:
+      summary: Get all players
+      description: |
+        Returns a list of all players known to the system.  
+        This list can be navigated using the pagination parameters "offset" and "limit"
+      operationId: getPlayers
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/PlayersResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    post:
+      summary: Add a player
+      description: |
+        Adds a new player to the system.
+      operationId: addPlayer
+      parameters:
+        - $ref: '#/parameters/player'
+      responses:
+        204:
+          description: Player successfully added
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /players/{playerId}:
+    parameters:
+      - $ref: '#/parameters/playerId'
+    get:
+      summary: Get a player
+      operationId: getPlayer
+      responses:
+        200:
+          $ref: '#/responses/PlayerResponse'
+        404:
+          $ref: '#/responses/PlayerNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    patch:
+      summary: Update a player
+      operationId: updatePlayer
+      parameters:
+        - $ref: '#/parameters/player'
+      responses:
+        204:
+          description: Player successfully updated
+        404:
+          $ref: '#/responses/PlayerNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Delete a player
+      operationId: deletePlayer
+      responses:
+        204:
+          description: Player successfully deleted
+        404:
+          $ref: '#/responses/PlayerNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /venues:
+    get:
+      summary: Get all venues
+      operationId: getVenues
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/VenuesResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    post:
+      summary: Add a venue
+      operationId: addVenue
+      parameters:
+        - $ref: '#/parameters/venue'
+      responses:
+        204:
+          description: Venue successfully added
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /venues/{venueId}:
+    parameters:
+      - $ref: '#/parameters/venueId'
+    get:
+      summary: Get a venue
+      operationId: getVenue
+      responses:
+        200:
+          $ref: '#/responses/VenueResponse'
+        404:
+          $ref: '#/responses/VenueNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    patch:
+      summary: Update a venue
+      operationId: updateVenue
+      parameters:
+        - $ref: '#/parameters/venue'
+      responses:
+        204:
+          description: Venue successfully updated
+        404:
+          $ref: '#/responses/VenueNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Delete a venue
+      operationId: deleteVenue
+      responses:
+        204:
+          description: Venue successfully deleted
+        404:
+          $ref: '#/responses/VenueNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /clubs:
+    get:
+      summary: Get all clubs
+      operationId: getClubs
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/ClubsResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    post:
+      summary: Add a club
+      operationId: addClub
+      parameters:
+        - $ref: '#/parameters/club'
+      responses:
+        204:
+          description: Club successfully added
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /clubs/{clubId}:
+    parameters:
+      - $ref: '#/parameters/clubId'
+    get:
+      summary: Get a club
+      operationId: getClub
+      responses:
+        200:
+          $ref: '#/responses/ClubResponse'
+        404:
+          $ref: '#/responses/ClubNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    patch:
+      summary: Update a club
+      operationId: updateClub
+      parameters:
+        - $ref: '#/parameters/club'
+      responses:
+        204:
+          description: Club successfully updated
+        404:
+          $ref: '#/responses/ClubNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Delete a club
+      operationId: deleteClub
+      responses:
+        204:
+          description: Club successfully deleted
+        404:
+          $ref: '#/responses/ClubNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /clubs/{clubId}/teams:
+    parameters:
+      - $ref: '#/parameters/clubId'
+    get:
+      summary: Get all teams for a club
+      operationId: getTeamsForClub
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/TeamsResponse'
+        404:
+          $ref: '#/responses/ClubNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /clubs/{clubId}/teams/{teamId}:
+    parameters:
+      - $ref: '#/parameters/clubId'
+      - $ref: '#/parameters/teamId'
+    post:
+      summary: Add a team to a club
+      operationId: addTeamToClub
+      responses:
+        204:
+          description: Team successfully added to club
+        404:
+          $ref: '#/responses/ClubNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Remove a team from a club
+      operationId: removeTeamFromClub
+      responses:
+        204:
+          description: Team successfully removed from club
+        404:
+          $ref: '#/responses/ClubOrTeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /teams:
+    get:
+      summary: Get all teams
+      operationId: getTeams
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/TeamsResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    post:
+      summary: Add a team
+      operationId: addTeam
+      parameters:
+        - $ref: '#/parameters/team'
+      responses:
+        204:
+          description: Team successfully added
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+  /teams/{teamId}:
+    parameters:
+      - $ref: '#/parameters/teamId'
+    get:
+      summary: Get a team
+      operationId: getTeam
+      responses:
+        200:
+          $ref: '#/responses/TeamResponse'
+        404:
+          $ref: '#/responses/TeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    patch:
+      summary: Update a team
+      operationId: updateTeam
+      parameters:
+        - $ref: '#/parameters/team'
+      responses:
+        204:
+          description: Team successfully updated
+        404:
+          $ref: '#/responses/TeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Delete a team
+      operationId: deleteTeam
+      responses:
+        204:
+          description: Team successfully deleted
+        404:
+          $ref: '#/responses/TeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+  /teams/{teamId}/players:
+    parameters:
+      - $ref: '#/parameters/teamId'
+    get:
+      summary: Get all players for a team
+      operationId: getPlayersForTeam
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      responses:
+        200:
+          $ref: '#/responses/PlayersResponse'
+        404:
+          $ref: '#/responses/TeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+  /teams/{teamId}/players/{playerId}:
+    parameters:
+      - $ref: '#/parameters/teamId'
+      - $ref: '#/parameters/playerId'
+    post:
+      summary: Add a player to a team
+      operationId: addPlayerToTeam
+      responses:
+        204:
+          description: Player successfully added to team
+        404:
+          $ref: '#/responses/TeamNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+    delete:
+      summary: Remove a player from a team
+      operationId: removePlayerFromTeam
+      responses:
+        204:
+          description: Player successfully removed from team
+        404:
+          $ref: '#/responses/TeamOrPlayerNotFoundResponse'
+        500:
+          $ref: '#/responses/Standard500ErrorResponse'
+
+definitions:
+  Id:
+    title: Id
+    description: The unique ID used to reference entities in this API
+    type: string
+    format: '[0-9]{1,9}'
+    readOnly: true
+  Player:
+    title: Player
+    description: An object describing a player that can be read or written through this API
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      firstname:
+        type: string
+        description: The players first name
+      lastname:
+        type: string
+        description: The players last name
+      gender:
+        type: string
+        description: The players gender (used to assign the player to the male/female league)
+        enum:
+          - female
+          - male
+      birthdate:
+        type: string
+        description: The players date of birth
+        format: date
+      email:
+        type: string
+        description: The players email address
+      phone:
+        type: string
+        description: The players phone number
+      nationalPlayerNumber:
+        type: string
+        description: The players national player number
+      internationalPlayerNumber:
+        type: string
+        description: The players international player number
+  Players:
+    title: Players
+    description: A list of players
+    type: array
+    items:
+      $ref: '#/definitions/Player'
+  Venue:
+    title: Venue
+    description: An object describing a venue where matches can be played
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+        description: The name of the venue
+      street:
+        type: string
+        description: The street (and house number) of the venue
+      city:
+        type: string
+        description: The city of the venue
+      zip:
+        type: string
+        description: The zip code of the venue
+      country:
+        type: string
+        description: The country of the venue
+      tables:
+        type: array
+        description: A list of tables that are available in this venue
+        items:
+          type: string
+          description: A name of a table
+  Venues:
+    title: Venues
+    description: A list of venues
+    type: array
+    items:
+      $ref: '#/definitions/Venue'
+  Club:
+    title: Club
+    description: An object describing a club that organizes teams
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+        description: The name of the club
+  Clubs:
+    title: Clubs
+    description: A list of clubs
+    type: array
+    items:
+      $ref: '#/definitions/Club'
+  Team:
+    title: Team
+    description: An object describing a team
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+        description: The name of the team
+  Teams:
+    title: Teams
+    description: A list of teams
+    type: array
+    items:
+      $ref: '#/definitions/Team'
+  Error:
+    title: Error
+    description: A generic object to describe errors
+    properties:
+      code:
+        type: string
+        description: A machine readable error code
+      message:
+        type: string
+        description: A human readable error message
+
+parameters:
+  playerId:
+    name: playerId
+    in: path
+    type: string
+    required: true
+    description: The id of the player
+  venueId:
+    name: venueId
+    in: path
+    type: string
+    required: true
+    description: The id of the venue
+  clubId:
+    name: clubId
+    in: path
+    type: string
+    required: true
+    description: The id of the club
+  teamId:
+    name: teamId
+    in: path
+    type: string
+    required: true
+    description: The id of the team
+  limit:
+    name: limit
+    in: query
+    type: integer
+    minimum: 1
+    default: 10
+    description: How many entries should be returned per API call
+  offset:
+    name: offset
+    in: query
+    type: integer
+    minimum: 0
+    default: 0
+    description: Defines how many entries are before the current entry (multiple of "limit")
+  player:
+    name: player
+    in: body
+    schema:
+      $ref: '#/definitions/Player'
+    description: A player object
+  venue:
+    name: venue
+    in: body
+    schema:
+      $ref: '#/definitions/Venue'
+    description: A venue object
+  club:
+    name: club
+    in: body
+    schema:
+      $ref: '#/definitions/Club'
+    description: A club object
+  team:
+    name: team
+    in: body
+    schema:
+      $ref: '#/definitions/Team'
+    description: A team object
+
+responses:
+  Standard500ErrorResponse:
+    description: An unexpected error occured
+    schema:
+      $ref: '#/definitions/Error'
+  PlayerResponse:
+    description: A single player
+    schema:
+      $ref: '#/definitions/Player'
+  PlayersResponse:
+    description: A list of players
+    schema:
+      $ref: '#/definitions/Players'
+  PlayerNotFoundResponse:
+    description: Player not found
+  VenueResponse:
+    description: A single venue
+    schema:
+      $ref: '#/definitions/Venue'
+  VenuesResponse:
+    description: A list of venues
+    schema:
+      $ref: '#/definitions/Venues'
+  VenueNotFoundResponse:
+    description: Venue not found
+  ClubResponse:
+    description: A single club
+    schema:
+      $ref: '#/definitions/Club'
+  ClubsResponse:
+    description: A list of clubs
+    schema:
+      $ref: '#/definitions/Clubs'
+  ClubNotFoundResponse:
+    description: Club not found
+  ClubOrTeamNotFoundResponse:
+    description: Club or team not found
+  TeamResponse:
+    description: A single team
+    schema:
+      $ref: '#/definitions/Team'
+  TeamsResponse:
+    description: A list of teams
+    schema:
+      $ref: '#/definitions/Teams'
+  TeamNotFoundResponse:
+    description: Team not found
+  TeamOrPlayerNotFoundResponse:
+    description: Team or player not found
