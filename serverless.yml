@@ -132,17 +132,17 @@ resources:
       Properties:
         TableName: player
         AttributeDefinitions:
-          - 
+          -
             AttributeName: Id
             AttributeType: S
-          - 
+          -
             AttributeName: Lastname
             AttributeType: S
         KeySchema:
-          - 
+          -
             AttributeName: Id
             KeyType: HASH
-          - 
+          -
             AttributeName: Lastname
             KeyType: RANGE
         ProvisionedThroughput:

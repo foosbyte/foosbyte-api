@@ -19,7 +19,7 @@ paths:
     get:
       summary: Get all players
       description: |
-        Returns a list of all players known to the system.  
+        Returns a list of all players known to the system.
         This list can be navigated using the pagination parameters "offset" and "limit"
       operationId: getPlayers
       parameters:

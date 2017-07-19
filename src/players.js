@@ -21,4 +21,4 @@ export function list(event, context, callback) {
     };
     callback(null, response);
   });
-};
+}
