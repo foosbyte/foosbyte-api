@@ -1,13 +1,20 @@
 {
-  "name": "aws-rest-api-offline",
+  "name": "foosbyte-api",
   "version": "1.0.0",
-  "description": "Serverless REST API with DynamoDB and offline support",
-  "repository": "",
-  "author": "Christoph Gysin <christoph.gysin@gmail.com>",
+  "description": "Serverless REST API for foosball ligue systems",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foosbyte/foosbyte-api.git"
+  },
+  "author": "Foosbyte Team",
+  "private": true,
+  "contributors": [
+    "Hannes Thielker <hannesthielker@gmail.com>",
+    "Bjoern Brauer <zaubernerd@zaubernerd.de>"
+  ],
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist/",
-    "build": "npm run clean && babel src/ -d dist/",
+    "build": "rimraf dist/ && babel src/ -d dist/",
     "build:watch": "npm run build -- --watch",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
