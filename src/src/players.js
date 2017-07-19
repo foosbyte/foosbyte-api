@@ -1,8 +1,6 @@
-'use strict';
+import dynamodb from './dynamodb';
 
-const dynamodb = require('./dynamodb');
-
-module.exports.list = (event, context, callback) => {
+export function list(event, context, callback) {
   const params = {
     TableName: "Player",
   };

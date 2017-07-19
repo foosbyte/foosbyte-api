@@ -5,6 +5,16 @@
   "repository": "",
   "author": "Christoph Gysin <christoph.gysin@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "build": "npm run clean && babel src/ -d dist/",
+    "build:watch": "npm run build -- --watch",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "pretest": "npm run flow",
+    "flow": "flow",
+    "prepublish": "npm run build"
+  },
   "dependencies": {
     "aws-sdk": "^2.12.0",
     "serverless-dynamodb-client": "0.0.2",
@@ -13,6 +23,12 @@
     "uuid": "^2.0.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.50.0",
+    "jest": "^20.0.4",
+    "rimraf": "^2.6.1",
     "serverless-dynamodb-local": "^0.2.22",
     "serverless-offline": "^3.14.2"
   }

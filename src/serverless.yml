@@ -78,7 +78,7 @@ functions:
   hello:
     handler: handler.hello
   GetPlayers:
-    handler: handler/players.list
+    handler: dist/players.list
     events:
       - http:
           path: players
