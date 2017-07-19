@@ -75,8 +75,6 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
   GetPlayers:
     handler: dist/players.list
     events:

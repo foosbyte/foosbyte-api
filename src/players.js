@@ -2,7 +2,7 @@ import dynamodb from './dynamodb';
 
 export function list(event, context, callback) {
   const params = {
-    TableName: "Player",
+    TableName: "player",
   };
 
   // fetch all player from the database
