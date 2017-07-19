@@ -34,7 +34,7 @@ custom:
     seed:
       test:
         sources:
-          - table: Player
+          - table: player
             sources: [./testdata/player.json]
 
 provider:
@@ -132,7 +132,7 @@ resources:
     foosbyteDB:
       Type: 'AWS::DynamoDB::Table'
       Properties:
-        TableName: Player
+        TableName: player
         AttributeDefinitions:
           - 
             AttributeName: Id
