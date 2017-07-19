@@ -2,7 +2,7 @@ import dynamodb from './dynamodb';
 
 export function list(event, context, callback) {
   const params = {
-    TableName: "player",
+    TableName: 'player',
   };
 
   // fetch all player from the database
@@ -10,7 +10,7 @@ export function list(event, context, callback) {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(new Error('Couldn\'t fetch players.'));
+      callback(new Error("Couldn't fetch players."));
       return;
     }
 
