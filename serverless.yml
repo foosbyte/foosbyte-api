@@ -36,6 +36,18 @@ custom:
         sources:
           - table: player
             sources: [./testdata/player.json]
+          - table: team
+            sources: [./testdata/team.json]
+          - table: team_players
+            sources: [./testdata/team_players.json]
+          - table: club
+            sources: [./testdata/club.json]
+          - table: club_teams
+            sources: [./testdata/club_teams.json]
+          - table: venue
+            sources: [./testdata/venue.json]
+          - table: venue_teams
+            sources: [./testdata/venue_teams.json]
 
 provider:
   name: aws
@@ -127,23 +139,121 @@ functions:
 #       Value: "Some output value"
 resources:
   Resources:
-    foosbyteDB:
+    playerTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         TableName: player
         AttributeDefinitions:
-          -
-            AttributeName: Id
+          - AttributeName: id
             AttributeType: S
-          -
-            AttributeName: Lastname
+          - AttributeName: lastname
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: Id
+          - AttributeName: id
             KeyType: HASH
-          -
-            AttributeName: Lastname
+          - AttributeName: lastname
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    teamTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: team
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    teamPlayersTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: team_players
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: player_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: player_id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    venueTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: venue
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    venueTeamsTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: venue_teams
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: team_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: team_id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    clubTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: club
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    clubTeamsTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: club_teams
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: team_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: team_id
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 5
