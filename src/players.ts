@@ -1,8 +1,16 @@
 import dynamodb from './dynamodb';
 
-export function list(event, context, callback) {
+export interface ServerlessCallback {
+  (error: Error | null, reponse?: any): void;
+}
+
+export function list(
+  _event: any,
+  _context: any,
+  callback: ServerlessCallback
+): void {
   const params = {
-    TableName: 'player',
+    TableName: 'player'
   };
 
   // fetch all player from the database
@@ -17,7 +25,7 @@ export function list(event, context, callback) {
     // create a response
     const response = {
       statusCode: 200,
-      body: JSON.stringify(result.Items),
+      body: JSON.stringify(result.Items)
     };
     callback(null, response);
   });

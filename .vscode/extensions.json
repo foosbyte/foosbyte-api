@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+        "eg2.tslint",
+        "EditorConfig.EditorConfig",
+        "KnisterPeter.vscode-github",
+        "christian-kohler.npm-intellisense",
+        "KnisterPeter.vscode-commitizen",
+        "christian-kohler.path-intellisense"
+	]
+}
