@@ -10,35 +10,46 @@
   "private": true,
   "contributors": [
     "Hannes Thielker <hannesthielker@gmail.com>",
-    "Bjoern Brauer <zaubernerd@zaubernerd.de>"
+    "Bjoern Brauer <zaubernerd@zaubernerd.de>",
+    "Markus Wolf <knister.peter@shadowrun-clan.de>"
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/ && babel src/ -d dist/",
+    "prebuild": "rimraf dist/",
+    "build": "tsc",
     "build:watch": "npm run build -- --watch",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "pretest": "npm run flow",
-    "flow": "flow",
     "prepublish": "npm run build",
     "postinstall": "sls dynamodb install",
     "prestart": "npm run build",
     "start": "sls offline start",
-    "fmt": "prettier --write --single-quote --trailing-comma=all --bracket-spacing 'src/**/*.js'"
+    "fmt": "prettier --write --single-quote --bracket-spacing 'src/**/*.ts'",
+    "precommit": "lint-staged",
+    "lint": "tslint --project ./tsconfig.json --type-check"
   },
   "dependencies": {
     "aws-sdk": "2.12.0",
+    "tslib": "1.7.1",
     "uuid": "2.0.3"
   },
   "devDependencies": {
-    "babel-cli": "6.24.1",
-    "babel-preset-env": "1.6.0",
-    "babel-preset-flow": "6.23.0",
-    "flow-bin": "0.50.0",
+    "@types/node": "8.0.23",
+    "husky": "0.14.3",
     "jest": "20.0.4",
+    "lint-staged": "4.0.3",
     "prettier": "1.5.3",
     "rimraf": "2.6.1",
     "serverless-dynamodb-local": "0.2.22",
-    "serverless-offline": "3.14.2"
+    "serverless-offline": "3.14.2",
+    "tslint": "5.6.0",
+    "typescript": "2.4.2"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "lint",
+      "fmt",
+      "git add"
+    ]
   }
 }
